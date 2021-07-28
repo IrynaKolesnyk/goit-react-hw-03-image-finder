@@ -14,6 +14,7 @@ class App extends Component {
     largeImageURL: "",
     isLoading: false,
     scrollHeight: 0,
+    // galleryLink: null,
     // showModal: false,
   };
 
@@ -31,13 +32,17 @@ class App extends Component {
     });
   };
 
+  // scrollHeight = document.documentElement.scrollHeight -;
+
   fetchHits = () => {
-    const { currentPage, searchQuery } = this.state;
+    const { currentPage, searchQuery, scrollHeight } = this.state;
 
     const options = {
       searchQuery,
       currentPage,
     };
+
+    const galleryLink = document.getElementById("gallery");
 
     this.setState({ isLoading: true });
 
@@ -51,11 +56,12 @@ class App extends Component {
       .catch((error) => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false });
-
         window.scrollTo({
-          top: document.documentElement.scrollHeight,
+          top: scrollHeight,
           behavior: "smooth",
         });
+        // this.setState({ scrollHeight: document.documentElement.scrollHeight }); скрол через документ
+        this.setState({ scrollHeight: galleryLink.scrollHeight + 18 });
       });
   };
 
