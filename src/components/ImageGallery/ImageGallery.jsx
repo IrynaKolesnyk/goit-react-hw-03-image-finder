@@ -3,7 +3,7 @@ import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 
 const ImageGallery = ({ hits, onClick }) => {
   return (
-    <ul className="ImageGallery">
+    <ul className="ImageGallery" id="gallery">
       {hits.map((hit) => (
         <ImageGalleryItem
           key={hit.id}

@@ -13,7 +13,8 @@ class App extends Component {
     searchQuery: "",
     largeImageURL: "",
     isLoading: false,
-    showModal: false,
+    scrollHeight: 0,
+    // showModal: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,6 +51,7 @@ class App extends Component {
       .catch((error) => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false });
+
         window.scrollTo({
           top: document.documentElement.scrollHeight,
           behavior: "smooth",
@@ -58,18 +60,17 @@ class App extends Component {
   };
 
   toggleModal = (url) => {
-    if (!url) {
-      url = null;
-    }
-    this.setState({ showModal: !this.state.showModal, largeImageURL: url });
+    this.setState({ largeImageURL: url ? url : "" });
   };
 
   render() {
-    const { showModal, hits, isLoading, largeImageURL } = this.state;
+    const { hits, isLoading, largeImageURL } = this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onChangeQuery} />
-        {showModal && <Modal onClose={this.toggleModal} url={largeImageURL} />}
+        {largeImageURL && (
+          <Modal onClose={this.toggleModal} url={largeImageURL} />
+        )}
         <ImageGallery hits={hits} onClick={this.toggleModal} />
         {hits.length > 0 && !isLoading && <Button fetchHits={this.fetchHits} />}
         {isLoading && <AppLoader />}
