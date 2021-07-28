@@ -58,6 +58,9 @@ class App extends Component {
   };
 
   toggleModal = (url) => {
+    if (!url) {
+      url = null;
+    }
     this.setState({ showModal: !this.state.showModal, largeImageURL: url });
   };
 
