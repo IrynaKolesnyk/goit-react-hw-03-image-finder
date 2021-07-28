@@ -62,6 +62,7 @@ class App extends Component {
         });
         // this.setState({ scrollHeight: document.documentElement.scrollHeight }); скрол через документ
         this.setState({ scrollHeight: galleryLink.scrollHeight + 18 });
+        // + 18  - число grid-gap у ul gallery, иначе картинки немного уезжают вверх
       });
   };
 
